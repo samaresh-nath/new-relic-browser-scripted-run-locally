@@ -23,7 +23,9 @@ var UserAgent = "default";
 
 // Create Synthetic scripted browsers provide access the variable $driver & $browser
 
-/** Trying iwth option 1 - https://discuss.newrelic.com/t/local-development-of-scripts/31468/3 - With this getting output but still some issues exists*/
+/** Trying iwth option 1 - https://discuss.newrelic.com/t/local-development-of-scripts/31468/3 -*/
+
+// For running Locally
 var assert = require('assert');
 require("chromedriver");
 $driver = require('selenium-webdriver');
@@ -41,43 +43,7 @@ $browser.waitForAndFindElement = function (locatorOrElement, timeoutMsOpt) {
           });
       });
     };
-// require("chromedriver");
-// var webdriver = require('selenium-webdriver');
 
-// var $driver = new webdriver.Builder()
-//    .withCapabilities(webdriver.Capabilities.chrome())
-//    .build();
-
-// $browser.waitForAndFindElement = function (el, timeout) {
-//     return $browser.wait($driver.until.elementLocated(el), timeout)
-//         .then(() => $browser.findElement(el)
-//   };
-
-//var $browser = $driver;
-
-/** Tring option 2 to run code locally - https://discuss.newrelic.com/t/local-development-of-scripts/31468/3  -- Not getting correct output */
-// var assert = require('assert'),
-// $driver = require('selenium-webdriver');
-
-// var $browser = new $driver.Builder()
-//     .forBrowser('chrome')
-//     .build();
-
-// $browser.waitForElement = async (locatorOrElement, timeoutMsOpt) => {
-//     return $browser.wait($driver.until.elementLocated(locatorOrElement), timeoutMsOpt || 1000, 'Timed-out waiting for element to be located using: ' + locatorOrElement);
-// };
-
-// $browser.waitForAndFindElement = async (locatorOrElement, timeoutMsOpt) => {
-//     return $browser.waitForElement(locatorOrElement, timeoutMsOpt)
-//         .then((element) => {
-//             return $browser.wait($driver.until.elementIsVisible(element), timeoutMsOpt || 1000, 'Timed-out waiting for element to be visible using: ' + locatorOrElement)
-//                 .then(function () {
-//                 return element;
-//                 });
-//         });
-// };
-
-// end option 2
 
 // /** Read Token from Vault */
 const fs = require('fs');
@@ -92,7 +58,9 @@ const config = {
   }
 };
 
-/** ############# End Locally Testing ################################## */
+/** ############# End Local Testing ################################## */
+
+/** For New Relic Browser */
 
 /** Uncommented this section when deply on the NR Synthetic monitor */
 /** HELPER VARIABLES AND FUNCTIONS **/
@@ -140,21 +108,6 @@ let aloha_sid = null;
     //console.log('SID Value :' + aloha_sid.data.sid);
 })();
 
-// const svcPath = 'secret/sre/auth/ad/svc_zabbix_aloha';
-// let svc_zabbixapi_pass = null;
-// (async () => {
-//   svc_zabbixapi_pass = await vault_read(svcPath);
-//   console.log("Vault esas_support_api has been returned !");
-// })();
-
-// const tokenPath = 'secret/sre/raw/aloha/svc_zabbix_aloha/token';
-// let aloha_token = null;
-// (async () => {
-//   aloha_token = await vault_read(tokenPath);
-//   console.log("Vault aloha token has been returned !");
-// })();
-
-
 //Setting User Agent is not then-able, so we do this first (if defined and not default)
 if (UserAgent && (0 !== UserAgent.trim().length) && (UserAgent != 'default')) {
   $browser.addHeader('User-Agent', UserAgent);
@@ -193,10 +146,10 @@ $browser.getCapabilities().then(function () { })
     //     logger.log(3, "Open https://aloha.my.salesforce.com/idp/login?app=0spd0000000CagR");
     //     return $browser.get("https://aloha.my.salesforce.com/idp/login?app=0spd0000000CagR");
     // })
-    .then(() => {
-        console.log("Waiting before search to view profile icon ...")
-        //$browser.sleep(5000);
-    })
+    // .then(() => {
+    //     console.log("Waiting before search to view profile icon ...")
+    //     //$browser.sleep(5000);
+    // })
 
     // Search the specific element on the app page and validate it
     // .then(() => {
@@ -220,13 +173,13 @@ $browser.getCapabilities().then(function () { })
     //         //})
     //  })
 
-    .then(() => {
-            logger.log(5, "clickElement LMS Update");
-            return $browser.waitForAndFindElement($driver.By.linkText("Aloha Zabbix Service Account"), DefaultTimeout)
-                .then(function (el) {
-                    el.click();
-                })
-    })
+    // .then(() => {
+    //         logger.log(5, "clickElement LMS Update");
+    //         return $browser.waitForAndFindElement($driver.By.linkText("Aloha Zabbix Service Account"), DefaultTimeout)
+    //             .then(function (el) {
+    //                 el.click();
+    //             })
+    // })
 
     //End iwth session id ##########################
     // .then(() => {
